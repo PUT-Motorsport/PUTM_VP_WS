@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        container:
+        image: rostooling/setup-ros-docker:ubuntu-humble-latest
 
       - name: Setup ROS 2 (Humble)
         run: |
