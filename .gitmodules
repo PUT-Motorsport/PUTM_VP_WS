@@ -1,9 +1,11 @@
 [submodule "src/putm_controller"]
 	path = src/putm_controller
 	url = git@github.com:PUT-Motorsport/putm_controller.git
+	branch = main
 [submodule "src/putm_vcl"]
 	path = src/putm_vcl
 	url = git@github.com:PUT-Motorsport/putm_vcl.git
+	branch = main
 [submodule "src/ros2_xsens_mti_driver"]
 	path = src/ros2_xsens_mti_driver
 	url = https://github.com/DEMCON/ros2_xsens_mti_driver.git
@@ -13,3 +15,4 @@
 [submodule "src/putm_lap_timer"]
 	path = src/putm_lap_timer
 	url = git@github.com:PUT-Motorsport/putm_lap_timer.git
+	branch = main
