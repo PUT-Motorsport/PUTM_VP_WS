@@ -50,7 +50,7 @@ jobs:
       - name: Build with colcon
         run: |
           source /opt/ros/humble/setup.bash
-          colcon build --packages-select putm_vcl
+          colcon build --packages-select putm_vcl_interfaces putm_vcl
 
       # (Opcjonalnie) testy
       - name: Test with colcon (optional)
