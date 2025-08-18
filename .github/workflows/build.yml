@@ -50,7 +50,7 @@ jobs:
       - name: Build with colcon
         run: |
           source /opt/ros/humble/setup.bash
-          colcon build --event-handlers console_cohesion+
+          colcon build --packages-select putm_vcl
 
       # (Opcjonalnie) testy
       - name: Test with colcon (optional)
