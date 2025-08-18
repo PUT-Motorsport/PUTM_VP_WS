@@ -1,5 +1,5 @@
 # putm_ws
-![CI](https://github.com/PUT-Motorsport/putm_ws/edit/main/README.md/actions/workflows/build.yml/badge.svg?branch=main)
+[![Colcon Build](https://github.com/PUT-Motorsport/putm_ws/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/PUT-Motorsport/putm_ws/actions/workflows/build.yml)
 Clone the repository with all the submodules
 ```bash
 git clone --recurse-submodules git@github.com:PUT-Motorsport/putm_ws.git
