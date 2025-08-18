@@ -12,4 +12,4 @@
 	url = https://github.com/F1tenth-Project-Lutututu/vectornav.git
 [submodule "src/putm_lap_timer"]
 	path = src/putm_lap_timer
-	url = https://github.com/PUT-Motorsport/putm_lap_timer.git
+	url = git@github.com:PUT-Motorsport/putm_lap_timer.git
