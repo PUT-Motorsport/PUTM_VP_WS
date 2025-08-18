@@ -7,32 +7,51 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+
+    # Uruchamiamy kroki wewnątrz kontenera z ROS 2 Humble
     container:
-        image: rostooling/setup-ros-docker:ubuntu-humble-latest
+      image: ros:humble-ros-base  # alternatywnie: ros:humble
+
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup ROS 2 (Humble)
+      - name: Install build tools & rosdep
         run: |
-          sudo apt update
-          sudo apt install -y curl gnupg2 lsb-release
-          sudo apt update && sudo apt install -y software-properties-common
-          sudo add-apt-repository universe
-          sudo apt install python3
-          sudo apt update && sudo apt install -y \
-            build-essential cmake git python3-colcon-common-extensions \
-            python3-rosdep python3-vcstool
-
-          # setup rosdep
-          sudo rosdep init || true
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y \
+            build-essential cmake git \
+            python3-pip python3-vcstool \
+            python3-colcon-common-extensions \
+            python3-rosdep
+          # inicjalizacja rosdep (w kontenerze zwykle działamy jako root)
+          rosdep init || true
           rosdep update
 
-      - name: Install dependencies with rosdep
+      # (Opcjonalnie) jeżeli używasz .repos do pobierania zależnych pakietów:
+      - name: Import additional repos (optional)
+        if: hashFiles('*.repos') != ''
         run: |
-          rosdep install --from-paths src --ignore-src -r -y
+          vcs import src < $(ls *.repos | head -n 1)
+
+      - name: Install package dependencies via rosdep
+        run: |
+          source /opt/ros/humble/setup.bash
+          rosdep install --from-paths src --ignore-src -r -y --rosdistro humble
 
       - name: Build with colcon
         run: |
+          source /opt/ros/humble/setup.bash
           colcon build --event-handlers console_cohesion+
+
+      # (Opcjonalnie) testy
+      - name: Test with colcon (optional)
+        if: always()
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon test --event-handlers console_cohesion+ || true
+          colcon test-result --verbose || true
