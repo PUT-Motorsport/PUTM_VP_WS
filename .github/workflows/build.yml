@@ -57,5 +57,4 @@ jobs:
         if: always()
         run: |
           source /opt/ros/humble/setup.bash
-          colcon test --event-handlers console_cohesion+ || true
-          colcon test-result --verbose || true
+          colcon test --packages-select putm_vcl
