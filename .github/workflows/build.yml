@@ -17,8 +17,12 @@ jobs:
         shell: bash
 
     steps:
-      - name: Checkout repository
+      - name: Checkout (with submodules)
         uses: actions/checkout@v4
+        with:
+          submodules: recursive          # <<< WAŻNE
+          # Jeśli submoduły są prywatne i w innych repo:
+          # token: ${{ secrets.GH_PAT }}
 
       - name: Install build tools & rosdep
         run: |
