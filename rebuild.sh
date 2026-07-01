@@ -1,0 +1,2 @@
+colcon build
+systemctl restart pmx_system.service

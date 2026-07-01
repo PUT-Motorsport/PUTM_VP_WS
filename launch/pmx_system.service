@@ -1,10 +1,11 @@
 [Unit]
-After=network-online.target
+After=network-online
 Description=ROS2 PIPM services
 
 [Service]
 User=putm
 Group=putm
+ExecStartPre=/bin/sleep 1
 ExecStart=/bin/bash -c 'source /opt/ros/humble/setup.bash; source /home/putm/putm_ws/install/setup.bash; export LD_LIBRARY_PATH=/home/putm/acados/lib:$LD_LIBRARY_PATH; ros2 launch /home/putm/putm_ws/launch/putm_ws.launch.py;'
 RemainAfterExit=no
 Restart=on-failure
