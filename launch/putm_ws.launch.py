@@ -11,6 +11,7 @@ def generate_launch_description():
         ("putm_lap_timer", None),
         ("xsens_mti_ros2_driver", "xsens_mti_node.launch.py"),
         ("current_predictor", "current_predictor.launch.py"),
+        ("putm_recorder", None),
     ]
     
     ld = LaunchDescription()
