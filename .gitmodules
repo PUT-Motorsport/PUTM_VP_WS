@@ -16,3 +16,6 @@
 	path = src/putm_lap_timer
 	url = git@github.com:PUT-Motorsport/putm_lap_timer.git
 	branch = main
+[submodule "src/putm_recorder"]
+	path = src/putm_recorder
+	url = git@github.com:PUT-Motorsport/PUTM_RECORDER.git
