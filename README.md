@@ -5,6 +5,11 @@ Clone the repository with all the submodules
 git clone --recurse-submodules git@github.com:PUT-Motorsport/putm_ws.git
 ```
 
+Build workspace
+```bash
+colcon build
+```
+
 Launch putm_controller and putm_vcl
 ```bash
 ros2 launch launch/putm_ws.launch.py
