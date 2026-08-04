@@ -1,8 +1,13 @@
 # putm_ws
-
+[![Build and Test](https://github.com/PUT-Motorsport/putm_ws/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/PUT-Motorsport/putm_ws/actions/workflows/build.yml)
 Clone the repository with all the submodules
 ```bash
 git clone --recurse-submodules git@github.com:PUT-Motorsport/putm_ws.git
+```
+
+Build workspace
+```bash
+colcon build
 ```
 
 Launch putm_controller and putm_vcl
