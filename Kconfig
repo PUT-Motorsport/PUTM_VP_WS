@@ -1,0 +1,25 @@
+mainmenu "PM10 Control Configuration"
+
+menu "Control Systems"
+
+choice
+    prompt "Control Algorithm"
+    default CONTROL_PID
+
+config CONTROL_MPC
+    bool "MPC"
+
+config CONTROL_PID
+    bool "PID"
+
+config CONTROL_OPEN_LOOP
+    bool "Open-loop"
+
+endchoice
+
+endmenu
+
+config MAX_MOMENT
+    int "Maximum Moment (Nm)"
+    range 0 200
+    default 100

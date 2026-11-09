@@ -5,3 +5,5 @@ log/
 bagi/
 .cache
 .vscode/
+config/
+.config
