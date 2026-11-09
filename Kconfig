@@ -1,25 +1,98 @@
 mainmenu "PM10 Control Configuration"
 
-menu "Control Systems"
+menu "PUTM Controller"
 
-choice
-    prompt "Control Algorithm"
-    default CONTROL_PID
+    menu "Control Mode"
 
-config CONTROL_MPC
-    bool "MPC"
+    config ENABLE_MPC
+        bool "Enable MPC"
+        default y
+        help
+            Enable Model Predictive Control.
 
-config CONTROL_PID
-    bool "PID"
+            If disabled, the controller operates
+            in Open-loop mode using pedal input.
 
-config CONTROL_OPEN_LOOP
-    bool "Open-loop"
+    endmenu
 
-endchoice
+    menu "Torque Configuration"
+
+        config MAX_MOMENT
+            int "Maximum Torque [Nm]"
+            range 0 200
+            default 100
+            help
+                Maximum requested motor torque in Nm.
+
+        config MIN_TORQUE
+            int "Minimum Torque [Nm]"
+            range -100 0
+            default -30
+            help
+                Minimum torque allowed by the output limiter.
+
+    endmenu
+
+
+    menu "Traction Control"
+
+        config ENABLE_TC
+            bool "Enable Traction Control"
+            default y
+            help
+                Enable torque reduction when wheel speed
+                exceeds the configured threshold.
+
+        config TC_SLIP_RATIO_LIMIT
+            int "TC Wheel Speed Ratio Limit [x1000]"
+            range 1000 1500
+            default 1050
+            help
+                Maximum wheel-to-vehicle speed ratio.
+                Value 1050 corresponds to 1.05.
+
+        config TC_TORQUE_REDUCTION_GAIN
+            int "TC Torque Reduction Gain [Nm/(m/s)]"
+            range 0 300
+            default 80
+            help
+                Torque reduction per 1 m/s of wheel speed
+                exceeding the configured threshold.
+
+    endmenu
+
+
+    menu "Vehicle Dynamics"
+
+        config KU_DENOMINATOR
+            int "Understeer Coefficient Ku (1 / X)"
+            range 1 10000
+            default 120
+            help
+                Denominator of the understeer coefficient.
+
+                Ku = 1.0 / KU_DENOMINATOR
+
+                Example:
+                120 -> Ku = 0.008333333...
+                100 -> Ku = 0.01
+                200 -> Ku = 0.005
+
+    endmenu
+
+
+    menu "Regenerative Braking"
+
+        config REGEN_BRAKING_FACTOR
+            int "Regenerative Braking Factor [%]"
+            range 0 100
+            default 40
+            help
+                Regenerative braking torque expressed
+                as a percentage of maximum torque.
+
+                Value 40 means 40% of MAX_MOMENT.
+
+    endmenu
 
 endmenu
-
-config MAX_MOMENT
-    int "Maximum Moment (Nm)"
-    range 0 200
-    default 100
