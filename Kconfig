@@ -43,13 +43,26 @@ menu "PUTM Controller"
                 Enable torque reduction when wheel speed
                 exceeds the configured threshold.
 
+        choice
+            prompt "Traction control algorithm"
+            default TC_ALGORITHM_LEGACY
+            depends on ENABLE_TC
+
+            config TC_ALGORITHM_LEGACY
+                bool "Legacy limiter"
+            config TC_ALGORITHM_PID
+                bool "PID"
+            config TC_ALGORITHM_SMC
+                bool "Sliding mode control (SMC)"
+        endchoice
+
         config TC_SLIP_RATIO_LIMIT
             int "TC Wheel Speed Ratio Limit [x1000]"
-            range 1000 1500
-            default 1050
+            range 1001 1500
+            default 1080
             help
                 Maximum wheel-to-vehicle speed ratio.
-                Value 1050 corresponds to 1.05.
+                Value 1080 corresponds to 1.08 (8% slip).
 
         config TC_TORQUE_REDUCTION_GAIN
             int "TC Torque Reduction Gain [Nm/(m/s)]"
@@ -58,6 +71,63 @@ menu "PUTM Controller"
             help
                 Torque reduction per 1 m/s of wheel speed
                 exceeding the configured threshold.
+
+        config TC_RADIUS_NM
+            int "Wheel rolling radius [nanometres]"
+            range 1 1000000000
+            default 197966676
+            help
+                Used by PID and SMC. Legacy uses its own fixed radius.
+
+        config TC_MIN_SPEED_MM_S
+            int "PID/SMC minimum speed [mm/s]"
+            range 1 100000
+            default 1000
+
+        config TC_PID_KP
+            int "PID proportional gain"
+            range 0 100000
+            default 500
+
+        config TC_PID_KI
+            int "PID integral gain"
+            range 0 100000
+            default 1500
+
+        config TC_PID_KD_MILLI
+            int "PID derivative gain [x1000]"
+            range 0 1000000
+            default 3000
+
+        config TC_DERIVATIVE_TAU_MS
+            int "PID derivative filter time constant [ms]"
+            range 1 10000
+            default 30
+
+        config TC_WHEEL_INERTIA_MILLI
+            int "SMC wheel inertia [kg m^2 x1000]"
+            range 1 100000
+            default 450
+
+        config TC_WHEEL_NM_PER_UNIT_MILLI
+            int "SMC wheel torque per command unit [Nm x1000]"
+            range 1 100000
+            default 1078
+
+        config TC_OBSERVER_TAU_MS
+            int "SMC load observer time constant [ms]"
+            range 1 10000
+            default 40
+
+        config TC_SMC_GAIN_MILLI
+            int "SMC switching gain [x1000]"
+            range 0 1000000
+            default 10000
+
+        config TC_SMC_BOUNDARY_MILLI
+            int "SMC boundary layer [x1000]"
+            range 1 1000000
+            default 2000
 
     endmenu
 
