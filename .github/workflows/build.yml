@@ -34,4 +34,4 @@ jobs:
       - name: Build with colcon
         run: |
           source /opt/ros/humble/setup.bash
-          colcon build --packages-select putm_vcl_interfaces putm_vcl putm_controller vectornav vectornav_msgs
+          colcon build --packages-select putm_vcl_interfaces putm_vcl putm_controller vectornav vectornav_msgs putm_recorder putm_lap_timer current_predictor
