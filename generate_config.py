@@ -36,8 +36,9 @@ def get_bool(name):
 
 enable_mpc = get_bool("ENABLE_MPC")
 
-max_moment = get_int("MAX_MOMENT")
-min_torque = get_int("MIN_TORQUE")
+nominal_motor_torque_nm = 9.8
+max_moment = get_int("MAX_MOMENT") * nominal_motor_torque_nm / 100.0
+min_torque = get_int("MIN_TORQUE") * nominal_motor_torque_nm / 100.0
 
 enable_tc = get_bool("ENABLE_TC")
 tc_algorithm = next((name for symbol, name in (

@@ -18,18 +18,18 @@ menu "PUTM Controller"
     menu "Torque Configuration"
 
         config MAX_MOMENT
-            int "Maximum Torque [Nm]"
+            int "Maximum motor torque [% of nominal]"
             range 0 200
             default 100
             help
-                Maximum requested motor torque in Nm.
+                Value 100 corresponds to 9.8 Nm at the motor.
 
         config MIN_TORQUE
-            int "Minimum Torque [Nm]"
+            int "Minimum motor torque [% of nominal]"
             range -100 0
             default -30
             help
-                Minimum torque allowed by the output limiter.
+                Value -30 corresponds to -2.94 Nm at the motor.
 
     endmenu
 
@@ -159,9 +159,9 @@ menu "PUTM Controller"
             default 40
             help
                 Regenerative braking torque expressed
-                as a percentage of maximum torque.
+                as a percentage of nominal motor torque.
 
-                Value 40 means 40% of MAX_MOMENT.
+                Value 0 disables the regenerative braking request.
 
     endmenu
 
